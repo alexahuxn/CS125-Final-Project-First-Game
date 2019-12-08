@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Toast;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     private MainThread thread;
 
@@ -18,7 +18,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
-        //this.setOnTouchListener(this);
+        this.setOnTouchListener(this);
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
     }
@@ -30,7 +30,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.geoffrey));
+        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.geoffreychallen));
         thread.setRunning(true);
         thread.start();
     }
@@ -60,5 +60,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             character.draw(canvas);
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
     }
 }
